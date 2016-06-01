@@ -57,17 +57,18 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             }
         }
 
-        public ProgramaholicsDataSet GetPastApplications()
+        
+
+        public static List<PastApplication> GetPastApplications(int userAccountId)
         {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("UserAccountId", userAccountId);
+
             //Used to fill in the DataSet and update the data source
-            OleDbDataAdapter sqlDataAdapter = new OleDbDataAdapter("SELECT * FROM PastApplications;", dbConnection);
-
-            //Fills in the dataset
-            ProgramaholicsDataSet myStoreDataSet = new ProgramaholicsDataSet();
-            sqlDataAdapter.Fill(myStoreDataSet.PastApplications);
-
-            //Returns the infomation stored in the table Customers
-            return myStoreDataSet;
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
+            {
+                return con.Query<PastApplication>("select * from PastApplications where UserAccountId = @UserAccountId", p).ToList();
+            }
         }
     }
 }

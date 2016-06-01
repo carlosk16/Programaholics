@@ -16,6 +16,6 @@ namespace TamayoWebFormCourseProjectWeb460.Models
         public string LeastFavLanguage { get; set; }
         public DateTime? DateOfLastProgramCompleted { get; set; }
 
-        public List<PastApplications> PastApplications { get; set; }
+        public List<PastApplication> PastApplications { get; set; }
     }
 }

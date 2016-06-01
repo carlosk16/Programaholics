@@ -68,11 +68,12 @@ namespace TamayoWebFormCourseProjectWeb460
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //BindPastApplicationsGridView();
+            
 
             try
             {
                 UserAccount userAccount = ClsDataLayer.FindCustomer(txtUserSearch.Text);
+                BindPastApplicationsGridView(userAccount.ID);
 
                 if (userAccount != null)
                 {
@@ -100,23 +101,16 @@ namespace TamayoWebFormCourseProjectWeb460
             }
         }
 
-        //private ProgramaholicsDataSet BindPastApplicationsGridView()
-        //{
-        //    //Database Connection
-        //    string tempPath = Server.MapPath("~/AppCode/Programoholics.accdb");
-        //    ClsDataLayer myDataLayer = new ClsDataLayer(tempPath);
+        private void BindPastApplicationsGridView(int userAccountId)
+        {
+            List<PastApplication> pastApplication = ClsDataLayer.GetPastApplications(userAccountId);
 
-        //    //Updates database 
-        //    ProgramaholicsDataSet applicationListing = myDataLayer.GetPastApplications();
+            //gets data and updates gridview
+            GridView1.DataSource = pastApplication;
 
-        //    //gets data and updates gridview
-        //    GridView1.DataSource = applicationListing.PastApplications;
-
-        //    //Binds data to Gridview
-        //    GridView1.DataBind();
-        //    Cache.Insert("CustomerDataSet", applicationListing);
-
-        //    return applicationListing;
-        //}
+            //Binds data to Gridview
+            GridView1.DataBind();
+            Cache.Insert("CustomerDataSet", pastApplication);
+        }
     }
 }

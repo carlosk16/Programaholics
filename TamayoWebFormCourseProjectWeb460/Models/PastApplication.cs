@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TamayoWebFormCourseProjectWeb460.Models
 {
-    public class PastApplications
+    public class PastApplication
     {
         public int ID { get; set; }
         public DateTime? CompletionDate { get; set; }
