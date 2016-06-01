@@ -66,6 +66,7 @@ namespace TamayoWebFormCourseProjectWeb460
             string tempPath = Server.MapPath("~/AppCode/Programoholics.accdb");
 
             ClsDataLayer dataLayerObj = new ClsDataLayer(tempPath);
+            BindPastApplicationsGridView();
 
             try
             {
@@ -94,6 +95,25 @@ namespace TamayoWebFormCourseProjectWeb460
                 string message = "Something went wrong - ";
                 Master.MyPrUserFeedbackoperty.Text = message + error.Message;
             }
+        }
+
+        private ProgramaholicsDataSet BindPastApplicationsGridView()
+        {
+            //Database Connection
+            string tempPath = Server.MapPath("~/AppCode/Programoholics.accdb");
+            ClsDataLayer myDataLayer = new ClsDataLayer(tempPath);
+
+            //Updates database 
+            ProgramaholicsDataSet applicationListing = myDataLayer.GetPastApplications();
+
+            //gets data and updates gridview
+            GridView1.DataSource = applicationListing.PastApplications;
+
+            //Binds data to Gridview
+            GridView1.DataBind();
+            Cache.Insert("CustomerDataSet", applicationListing);
+
+            return applicationListing;
         }
     }
 }

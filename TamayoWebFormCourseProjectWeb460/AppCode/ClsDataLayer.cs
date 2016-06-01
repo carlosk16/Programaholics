@@ -83,7 +83,7 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             }
         }
 
-        public DataSet GetPastApplications()
+        public ProgramaholicsDataSet GetPastApplications()
         {
             //Used to fill in the DataSet and update the data source
             OleDbDataAdapter sqlDataAdapter = new OleDbDataAdapter("SELECT * FROM PastApplications;", dbConnection);

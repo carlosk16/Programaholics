@@ -24,6 +24,6 @@
     <asp:Label ID="datelbl" runat="server" Text="Label"></asp:Label>
     <br />
     <br />
-    <asp:Button ID="confirm" runat="server" Text="Confirm and Submit" />
+    <asp:Button ID="confirm" runat="server" Text="Confirm and Submit" OnClick="btnUpdateAndConfirm_Click" />
 </asp:Content>
 

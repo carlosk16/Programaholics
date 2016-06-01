@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TamayoWebFormCourseProjectWeb460.AppCode;
 
 namespace TamayoWebFormCourseProjectWeb460
 {
@@ -29,5 +30,35 @@ namespace TamayoWebFormCourseProjectWeb460
                 this.Master.MyPrUserFeedbackoperty.Text = "Sorry, there was an error processing your request. " + error.Message;
             }
         }
+
+        protected void btnUpdateAndConfirm_Click(object sender, EventArgs e)
+        {
+
+            bool customerUPdateError = false;
+            string tempPath = Server.MapPath("~/App_Code/Programaholics.accdb");
+            ClsDataLayer myDataLayer = new ClsDataLayer(tempPath);
+           
+
+            try
+            {
+                myDataLayer.UPdateAccount(PreviousPage.City, PreviousPage.State, PreviousPage.FavoriteProgrammingLanguage, PreviousPage.LeastFavoriteProgrammingLanguage, PreviousPage.DateofLastProgramCompleted);
+
+            }
+            catch (Exception error)
+            {
+                customerUPdateError = true;
+                string message = "Error updating customer, please check form data.";
+                Master.MyPrUserFeedbackoperty.Text = message + error.Message;
+
+            }
+            if (!customerUPdateError)
+            {
+                //ClearInputs(Page.Controls);
+                Master.MyPrUserFeedbackoperty.Text = "Customer Updated Successfully.";
+            }
+
+        }
+
+       
     }
 }
