@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TamayoWebFormCourseProjectWeb460.AppCode;
+using TamayoWebFormCourseProjectWeb460.Models;
 
 namespace TamayoWebFormCourseProjectWeb460
 {
@@ -17,6 +18,8 @@ namespace TamayoWebFormCourseProjectWeb460
         {
 
         }
+
+        public int UserID { get; set; }
 
         public string City //Retreives value from City Text box
         {
@@ -60,25 +63,20 @@ namespace TamayoWebFormCourseProjectWeb460
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            ProgramaholicsDataSet dsSearch;
-
-            //string tempPath = Server.MapPath("Accounts.mdb");
-            string tempPath = Server.MapPath("~/AppCode/Programoholics.accdb");
-
-            ClsDataLayer dataLayerObj = new ClsDataLayer(tempPath);
-            BindPastApplicationsGridView();
+            //BindPastApplicationsGridView();
 
             try
             {
-                dsSearch = dataLayerObj.FindCustomer(txtUserSearch.Text);
+                UserAccount userAccount = ClsDataLayer.FindCustomer(txtUserSearch.Text);
 
-                if (dsSearch.UserAccount.Rows.Count > 0)
+                if (userAccount != null)
                 {
-                    txtCity.Text = dsSearch.UserAccount[0].City;
-                    txtState.Text = dsSearch.UserAccount[0].State;
-                    txtFavLanguage.Text = dsSearch.UserAccount[0].FavLanguage;
-                    txtLeastFavLanguage.Text = dsSearch.UserAccount[0].LeastFavLanguage;
-                    txtDate.Text = dsSearch.UserAccount[0].DateOfLastProgramCompleted.ToString();
+                    UserID = userAccount.ID;
+                    txtCity.Text = userAccount.City;
+                    txtState.Text = userAccount.State;
+                    txtFavLanguage.Text = userAccount.FavLanguage;
+                    txtLeastFavLanguage.Text = userAccount.LeastFavLanguage;
+                    txtDate.Text = userAccount.DateOfLastProgramCompleted.Value.ToString();
 
                     //customerID.Text = dsFindLastName.tblCustomers[0].CustomerID.ToString();
 
@@ -97,23 +95,23 @@ namespace TamayoWebFormCourseProjectWeb460
             }
         }
 
-        private ProgramaholicsDataSet BindPastApplicationsGridView()
-        {
-            //Database Connection
-            string tempPath = Server.MapPath("~/AppCode/Programoholics.accdb");
-            ClsDataLayer myDataLayer = new ClsDataLayer(tempPath);
+        //private ProgramaholicsDataSet BindPastApplicationsGridView()
+        //{
+        //    //Database Connection
+        //    string tempPath = Server.MapPath("~/AppCode/Programoholics.accdb");
+        //    ClsDataLayer myDataLayer = new ClsDataLayer(tempPath);
 
-            //Updates database 
-            ProgramaholicsDataSet applicationListing = myDataLayer.GetPastApplications();
+        //    //Updates database 
+        //    ProgramaholicsDataSet applicationListing = myDataLayer.GetPastApplications();
 
-            //gets data and updates gridview
-            GridView1.DataSource = applicationListing.PastApplications;
+        //    //gets data and updates gridview
+        //    GridView1.DataSource = applicationListing.PastApplications;
 
-            //Binds data to Gridview
-            GridView1.DataBind();
-            Cache.Insert("CustomerDataSet", applicationListing);
+        //    //Binds data to Gridview
+        //    GridView1.DataBind();
+        //    Cache.Insert("CustomerDataSet", applicationListing);
 
-            return applicationListing;
-        }
+        //    return applicationListing;
+        //}
     }
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using TamayoWebFormCourseProjectWeb460.Models;
 
 namespace TamayoWebFormCourseProjectWeb460.AppCode
 {
@@ -19,67 +22,38 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             dbConnection = new OleDbConnection("PROVIDER=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path);
         }
 
-        public ProgramaholicsDataSet FindCustomer(string userName)
+        public static UserAccount FindCustomer(string userName)
         {
-            //Creates a connection and query the Customer table for the last name enetered 
-            string sqlStmt = "select * from UserAccount where userName like '" + userName + "'";
-            OleDbDataAdapter sqlDataAdapter = new OleDbDataAdapter(sqlStmt, dbConnection);
+            DynamicParameters p = new DynamicParameters();
+            p.Add("Username", userName);
 
-            //creates dataset object
-            ProgramaholicsDataSet myStoreDataSet = new ProgramaholicsDataSet();
-
-            sqlDataAdapter.Fill(myStoreDataSet.UserAccount);
-
-            return myStoreDataSet;//returns customer's information
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
+            {
+                return con.Query<UserAccount>("select * from UserAccount where UserName = @Username", p).SingleOrDefault();
+            }           
         }
 
         //Method that Updates Customer information in the database
-        public void UPdateAccount(string city, string state, string favProgLanguage, string leastFavProgLanguage, string dateLastProgCompleted)
+        public static int UpdateAccount(int id, string city, string state, string favProgLanguage, string leastFavProgLanguage, string dateLastProgCompleted)
         {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("ID", id);
+            p.Add("City", city);
+            p.Add("State", state);
+            p.Add("FavProgrammingLanguage", favProgLanguage);
+            p.Add("LeastFavProgrammingLanguage", leastFavProgLanguage);
+            p.Add("DateLastCompleted", dateLastProgCompleted);
 
-
-            //SQL update statement
-            string sqlStmt =
-                @"UPDATE UserAccount 
-            SET 
-            city = @city,
-            state = @state,
-            favLanguage = @favProgLanguage,
-            leastFavLanguage = @leastFavProgLanguage,
-            dateOfLastProgramCompleted = @dateLastProgCompleted,
-            WHERE UserAccount.userID = @userID";
-
-
-
-            //Object created to establish a connection and executes update statement
-            OleDbCommand dbCommand = new OleDbCommand(sqlStmt, dbConnection);
-
-
-            //Adds updated information to the database
-            //OleDbParameter param = new OleDbParameter("@first", firstName); //This line of code was incorrect and commented out.
-
-            dbCommand.Parameters.Add(new OleDbParameter("@city", city));
-            dbCommand.Parameters.Add(new OleDbParameter("@state", state));
-            dbCommand.Parameters.Add(new OleDbParameter("@favLanguage", favProgLanguage));
-            dbCommand.Parameters.Add(new OleDbParameter("@leastFavLanguage", leastFavProgLanguage));
-            dbCommand.Parameters.Add(new OleDbParameter("@dateOfLastProgramCompleted", dateLastProgCompleted));
-            //dbCommand.Parameters.Add(new OleDbParameter("@userId", userID));
-
-            try
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
             {
-                //Opens database connection
-                dbConnection.Open();
-                //Executes
-                dbCommand.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-
-            }
-            finally
-            {
-                //Ensures the connection always closes
-                dbConnection.Close();
+                return con.Execute(@"update UserAccount 
+                        set 
+                        City = @City, 
+                        State = @State, 
+                        FavLanguage = @FavProgrammingLanguage,
+                        LeastFavLanguage = @LeastFavProgrammingLanguage,
+                        DateOfLastProgramCompleted = @DateLastCompleted
+                        where ID = @ID", p);
             }
         }
 
