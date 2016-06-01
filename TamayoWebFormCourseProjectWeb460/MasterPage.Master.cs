@@ -9,10 +9,10 @@ namespace TamayoWebFormCourseProjectWeb460
 {
     public partial class MasterPage : System.Web.UI.MasterPage
     {
-        public string MyPrUserFeedbackoperty
+        public Label MyPrUserFeedbackoperty
         {
-            get { return UserFeedback.Text; }
-            set { UserFeedback.Text = value; }
+            get { return UserFeedback; }
+            set { UserFeedback = value; }
         }
 
         protected void Page_Load(object sender, EventArgs e)

@@ -90,6 +90,7 @@
     <Content Include="AppCode\Programoholics.accdb" />
     <Content Include="Web.config" />
     <Content Include="AccountDetails.aspx" />
+    <Content Include="Confirmation.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\ClsDataLayer.cs" />
@@ -112,6 +113,13 @@
     </Compile>
     <Compile Include="AccountDetails.aspx.designer.cs">
       <DependentUpon>AccountDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Confirmation.aspx.cs">
+      <DependentUpon>Confirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Confirmation.aspx.designer.cs">
+      <DependentUpon>Confirmation.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
