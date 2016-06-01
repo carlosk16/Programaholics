@@ -10,7 +10,7 @@
 namespace TamayoWebFormCourseProjectWeb460 {
     
     
-    public partial class WebForm1 {
+    public partial class AccountDetails {
         
         /// <summary>
         /// Label1 control.

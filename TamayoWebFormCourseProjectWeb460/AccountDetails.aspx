@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AccountDetails.aspx.cs" Inherits="TamayoWebFormCourseProjectWeb460.WebForm1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AccountDetails.aspx.cs" Inherits="TamayoWebFormCourseProjectWeb460.AccountDetails" %>
 <%@ MasterType VirtualPath="~/MasterPage.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">

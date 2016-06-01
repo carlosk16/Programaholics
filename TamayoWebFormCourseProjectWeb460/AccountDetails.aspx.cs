@@ -5,54 +5,53 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using TamayoWebFormCourseProjectWeb460.AppCode;
 
 namespace TamayoWebFormCourseProjectWeb460
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class AccountDetails : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
-        //protected void btnSearch_Click(object sender, EventArgs e)
-        //{
-        //    DataSet dsSearch;
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            ProgramaholicsDataSet dsSearch;
 
-        //    //string tempPath = Server.MapPath("Accounts.mdb");
-        //    string tempPath = Server.MapPath("~/App_Code/web460crsProject.accdb");
-            
-        //    //ClsDataLayer dataLayerObj = new ClsDataLayer(tempPath);
+            //string tempPath = Server.MapPath("Accounts.mdb");
+            string tempPath = Server.MapPath("~/App_Code/web460crsProject.accdb");
 
-        //    try
-        //    {
-        //        dsSearch = dataLayerObj.FindCustomer(txtUserSearch.Text);
+            ClsDataLayer dataLayerObj = new ClsDataLayer(tempPath);
 
-        //        if (dsSearch.UserAccount.Rows.Count > 0)
-        //        {
-        //            txtCity.Text = dsSearch.UserAccount[0].city;
-        //            txtState.Text = dsSearch.UserAccount[0].state;
-        //            txtFavLanguage.Text = dsSearch.UserAccount[0].favLanguage;
-        //            txtLeastFavLanguage.Text = dsSearch.UserAccount[0].leastFavLanguage;
-        //            txtDate.Text = dsSearch.UserAccount[0].dateOfLastProgramCompleted.ToString();
+            try
+            {
+                dsSearch = dataLayerObj.FindCustomer(txtUserSearch.Text);
 
-        //            //customerID.Text = dsFindLastName.tblCustomers[0].CustomerID.ToString();
+                if (dsSearch.UserAccount.Rows.Count > 0)
+                {
+                    txtCity.Text = dsSearch.UserAccount[0].City;
+                    txtState.Text = dsSearch.UserAccount[0].State;
+                    txtFavLanguage.Text = dsSearch.UserAccount[0].FavLanguage;
+                    txtLeastFavLanguage.Text = dsSearch.UserAccount[0].LeastFavLanguage;
+                    txtDate.Text = dsSearch.UserAccount[0].DateOfLastProgramCompleted.ToString();
 
-        //            Master.UserFeedBack.Text = "Record Found";
-        //        }
-        //        else
-        //        {
-        //            Master.UserFeedBack.Text = "No records were found!";
+                    //customerID.Text = dsFindLastName.tblCustomers[0].CustomerID.ToString();
 
-        //        }
-        //    }
-        //    catch (Exception error)
-        //    {
-        //        string message = "Something went wrong - ";
-        //        Master.UserFeedBack.Text = message + error.Message;
+                    Master.MyPrUserFeedbackoperty = "Record Found";
+                }
+                else
+                {
+                    Master.MyPrUserFeedbackoperty = "No records were found!";
 
-        //    }
-        //}
+                }
+            }
+            catch (Exception error)
+            {
+                string message = "Something went wrong - ";
+                Master.MyPrUserFeedbackoperty = message + error.Message;
+            }
+        }
     }
 }

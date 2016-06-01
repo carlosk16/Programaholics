@@ -25,7 +25,7 @@
                 <!--Label for content pages to display user message-->
                 <strong>
                     <span style="color:red;">
-                        <asp:Label ID="lblUserFeedBack" runat="server">Welcome!</asp:Label>
+                        <asp:Label ID="UserFeedback" runat="server">Welcome!</asp:Label>
 
                     </span>
                 </strong>

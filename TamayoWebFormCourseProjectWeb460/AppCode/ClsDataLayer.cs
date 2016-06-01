@@ -19,7 +19,7 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             dbConnection = new OleDbConnection("PROVIDER=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path);
         }
 
-        public DataSet FindCustomer(string userName)
+        public ProgramaholicsDataSet FindCustomer(string userName)
         {
             //Creates a connection and query the Customer table for the last name enetered 
             string sqlStmt = "select * from UserAccount where userName like '" + userName + "'";
