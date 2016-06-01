@@ -68,6 +68,17 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="MasterPage.Master" />
+    <Content Include="AppCode\ProgramaholicsDataSet.xsc">
+      <DependentUpon>ProgramaholicsDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="AppCode\ProgramaholicsDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ProgramaholicsDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="AppCode\ProgramaholicsDataSet.xss">
+      <DependentUpon>ProgramaholicsDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -76,10 +87,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppCode\Programoholics.accdb" />
     <Content Include="Web.config" />
     <Content Include="AccountDetails.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCode\ClsDataLayer.cs" />
+    <Compile Include="AppCode\ProgramaholicsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProgramaholicsDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -96,6 +114,7 @@
       <DependentUpon>AccountDetails.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
