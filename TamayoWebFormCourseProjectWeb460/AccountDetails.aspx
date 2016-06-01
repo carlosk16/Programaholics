@@ -4,6 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    <asp:HiddenField ID="hdField1" runat="server"/>
     <asp:Label ID="Label1" runat="server" Text="Account Details"></asp:Label>
 &nbsp;&nbsp;&nbsp;
 <asp:Label ID="Label2" runat="server" Text="Search User by Username: "></asp:Label>
@@ -32,7 +33,7 @@
     <asp:GridView ID="GridView1" runat="server">
     </asp:GridView>
     <br />
-    <asp:Button ID="Button1" runat="server" Text="Update Account Information" Width="176px" PostBackUrl="~/confirmation.aspx" />
+    <asp:Button ID="Button1" runat="server" Text="Update Account Information" Width="176px" PostBackUrl="~/Confirmation.aspx" />
 &nbsp;&nbsp;
     <asp:Button ID="Button2" runat="server" Text="Delete Account" />
 &nbsp;&nbsp;

@@ -19,7 +19,12 @@ namespace TamayoWebFormCourseProjectWeb460
 
         }
 
-        public int UserID { get; set; }
+     
+        public string UserId
+        {
+            get { return hdField1.Value; }
+        }
+
 
         public string City //Retreives value from City Text box
         {
@@ -71,7 +76,7 @@ namespace TamayoWebFormCourseProjectWeb460
 
                 if (userAccount != null)
                 {
-                    UserID = userAccount.ID;
+                    hdField1.Value = userAccount.ID.ToString();
                     txtCity.Text = userAccount.City;
                     txtState.Text = userAccount.State;
                     txtFavLanguage.Text = userAccount.FavLanguage;

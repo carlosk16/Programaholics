@@ -11,7 +11,7 @@ namespace TamayoWebFormCourseProjectWeb460
 {
     public partial class Confirmation : System.Web.UI.Page
     {
-        UserAccount ua;
+        //UserAccount ua = new UserAccount();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +19,7 @@ namespace TamayoWebFormCourseProjectWeb460
             {
                 if (PreviousPage.IsCrossPagePostBack)//These lines of code retrieves the text fields entered in the Check out page If there is a cross page post back.
                 {
-                    ua.ID = PreviousPage.UserID;
+                    hdField1.Value = PreviousPage.UserId;
                     citylbl.Text = PreviousPage.City;
                     statelbl.Text = PreviousPage.State;
                     favLanguagelbl.Text = PreviousPage.FavoriteProgrammingLanguage;
@@ -37,7 +37,7 @@ namespace TamayoWebFormCourseProjectWeb460
 
         protected void btnUpdateAndConfirm_Click(object sender, EventArgs e)
         {
-            int result = ClsDataLayer.UpdateAccount(PreviousPage.UserID, citylbl.Text, statelbl.Text, leastFavLanuagelbl.Text, leastFavLanuagelbl.Text, datelbl.Text);
+            int result = ClsDataLayer.UpdateAccount(Convert.ToInt32(hdField1.Value), citylbl.Text, statelbl.Text, favLanguagelbl.Text, leastFavLanuagelbl.Text, datelbl.Text);
 
             if (result != 1)
             {
