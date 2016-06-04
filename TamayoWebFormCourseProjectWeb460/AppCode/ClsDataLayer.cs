@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
 using TamayoWebFormCourseProjectWeb460.Models;
 
 namespace TamayoWebFormCourseProjectWeb460.AppCode
@@ -30,7 +32,7 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
             {
                 return con.Query<UserAccount>("select * from UserAccount where UserName = @Username", p).SingleOrDefault();
-            }           
+            }
         }
 
         //Method that Updates Customer information in the database
@@ -57,7 +59,7 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             }
         }
 
-        
+
 
         public static List<PastApplication> GetPastApplications(int userAccountId)
         {
@@ -68,6 +70,35 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
             {
                 return con.Query<PastApplication>("select * from PastApplications where UserAccountId = @UserAccountId", p).ToList();
+            }
+        }
+
+        //Method that Deletes Customer information in the database
+        public static int DeleteAccount(int userAccountId)
+        {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("UserAccountId", userAccountId);
+            
+
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
+            {
+                return con.Execute(@"Delete UserAccount where ID = @UserAccountId", p);
+            }
+        }
+
+        
+    }
+
+    static class Serialize 
+    {
+        public static string SerializeObject<T>(this T toSerialize)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(toSerialize.GetType());
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(textWriter, toSerialize);
+                return textWriter.ToString();
             }
         }
     }

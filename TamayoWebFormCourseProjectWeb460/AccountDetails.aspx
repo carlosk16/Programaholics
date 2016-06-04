@@ -35,9 +35,9 @@
     <br />
     <asp:Button ID="Button1" runat="server" Text="Update Account Information" Width="176px" PostBackUrl="~/Confirmation.aspx" />
 &nbsp;&nbsp;
-    <asp:Button ID="Button2" runat="server" Text="Delete Account" />
+    <asp:Button ID="btnDelete" runat="server" Text="Delete Account" OnClick="btnDeleteAccount_Click" />
 &nbsp;&nbsp;
-    <asp:Button ID="Button3" runat="server" Text="Export Stats" />
+    <asp:Button ID="Button3" runat="server" Text="Export Stats" OnClick="btnExportStats" />
 </asp:Content>
 
 

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Serialization;
 using TamayoWebFormCourseProjectWeb460.AppCode;
 using TamayoWebFormCourseProjectWeb460.Models;
 
@@ -112,5 +114,53 @@ namespace TamayoWebFormCourseProjectWeb460
             GridView1.DataBind();
             Cache.Insert("CustomerDataSet", pastApplication);
         }
+
+        protected void btnDeleteAccount_Click(object sender, EventArgs e)
+        {
+            int result = ClsDataLayer.DeleteAccount(Convert.ToInt32(hdField1.Value));
+
+            if (result != 1)
+            {
+                
+                string message = "Error Deleting customer account, please check form data.";
+                Master.MyPrUserFeedbackoperty.Text = message;
+            }
+            else
+            {
+                ClearInputs(Page.Controls);
+                Master.MyPrUserFeedbackoperty.Text = "Customer Account was Deleted Successfully.";
+            }
+        }
+
+        //Export data from past application table
+        protected void btnExportStats (object sender, EventArgs e)
+        {
+           
+            List<PastApplication> result = ClsDataLayer.GetPastApplications(Convert.ToInt32(hdField1.Value));
+            
+            string export = Serialize.SerializeObject<List<PastApplication>>(result);
+
+            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            response.ClearContent();
+            response.Clear();
+            response.ContentType = "text/plain";
+            response.AddHeader("Content-Disposition", "attachment; filename=" + "Past Applications.txt" + ";");
+            Response.Write(export);
+            response.Flush();
+            response.End();
+        }
+
+        private void ClearInputs(ControlCollection ctrls)
+        {
+            foreach (Control ctrl in ctrls)
+            {
+                if (ctrl is TextBox)
+                    ((TextBox)ctrl).Text = string.Empty;
+
+                else
+                    ClearInputs(ctrl.Controls);
+            }
+        }
+
     }
 }
