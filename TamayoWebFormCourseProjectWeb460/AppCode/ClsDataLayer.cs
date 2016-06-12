@@ -35,6 +35,14 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             }
         }
 
+        internal static void LockUserAccount(string username)
+        {
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
+            {
+                con.Execute("UPDATE UserAccount SET Lockout = 1");
+            }
+        }
+
         //Method that Updates Customer information in the database
         public static int UpdateAccount(int id, string city, string state, string favProgLanguage, string leastFavProgLanguage, string dateLastProgCompleted)
         {
@@ -86,7 +94,18 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
             }
         }
 
-        
+        // Function name Authentication which will get check the user_name and passwrod from sql database then return a value true or false
+        public static Boolean Authentication(string username, string password)
+        {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("UserName", username);
+            p.Add("Password", password);
+
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
+            {
+                return con.Query<UserAccount>("Select * from [UserAccount] where UserName = @UserName AND Password = @Password" , p).Any();
+            }           
+        }
     }
 
     static class Serialize 
@@ -101,5 +120,6 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
                 return textWriter.ToString();
             }
         }
-    }
+    }   
+
 }
