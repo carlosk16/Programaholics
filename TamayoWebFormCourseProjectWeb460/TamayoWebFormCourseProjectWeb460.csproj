@@ -70,19 +70,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppCode\Programaholics.mdf" />
+    <Content Include="AppCode\Programaholics_log.ldf">
+      <DependentUpon>Programaholics.mdf</DependentUpon>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="MasterPage.Master" />
-    <Content Include="AppCode\ProgramaholicsDataSet.xsc">
-      <DependentUpon>ProgramaholicsDataSet.xsd</DependentUpon>
-    </Content>
-    <None Include="AppCode\ProgramaholicsDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ProgramaholicsDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="AppCode\ProgramaholicsDataSet.xss">
-      <DependentUpon>ProgramaholicsDataSet.xsd</DependentUpon>
-    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -91,7 +84,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppCode\Programoholics.accdb" />
     <Content Include="pgLogin.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -102,11 +94,6 @@
   <ItemGroup>
     <Compile Include="AppCode\ClsBusinessLayer.cs" />
     <Compile Include="AppCode\ClsDataLayer.cs" />
-    <Compile Include="AppCode\ProgramaholicsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProgramaholicsDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
