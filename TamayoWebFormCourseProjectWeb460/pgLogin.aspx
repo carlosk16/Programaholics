@@ -14,9 +14,9 @@
     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
     <br />
     <br />
-    <asp:Button ID="btnLogin" runat="server" Text="Login" />
+    <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
 &nbsp;&nbsp;
-    <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" Width="142px" />
+    <asp:Button ID="btnCreateAccount" runat="server" Text="Create Account" Width="142px" OnClick="btnCreateAccount_Click" />
 &nbsp;
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">

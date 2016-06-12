@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TamayoWebFormCourseProjectWeb460.Models;
 
 namespace TamayoWebFormCourseProjectWeb460.AppCode
 {
     public class ClsBusinessLayer
     {
-        public bool CheckUserCredentials(System.Web.SessionState.HttpSessionState currentSession, string username, string password)
+        public static UserAccount CheckUserCredentials(System.Web.SessionState.HttpSessionState currentSession, string username, string password)
         {
-            bool isValid = ClsDataLayer.Authentication(username, password);
+            UserAccount userAccount = ClsDataLayer.Authentication(username, password);
 
             currentSession["LockedSession"] = false;
 
@@ -27,7 +28,9 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
                 currentSession["LockedSession"] = true;
                 ClsDataLayer.LockUserAccount(username);
             }
-            return isValid;
+            return userAccount;
         }
+
+       
     }
 }

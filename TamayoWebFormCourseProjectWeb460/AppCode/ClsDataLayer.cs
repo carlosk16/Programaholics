@@ -37,9 +37,12 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
 
         internal static void LockUserAccount(string username)
         {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("Username", username);
+
             using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
             {
-                con.Execute("UPDATE UserAccount SET Lockout = 1");
+                con.Execute("UPDATE UserAccount SET Lockout = 1 where UserName = @Username", p);
             }
         }
 
@@ -95,7 +98,7 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
         }
 
         // Function name Authentication which will get check the user_name and passwrod from sql database then return a value true or false
-        public static Boolean Authentication(string username, string password)
+        public static UserAccount Authentication(string username, string password)
         {
             DynamicParameters p = new DynamicParameters();
             p.Add("UserName", username);
@@ -103,8 +106,22 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
 
             using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
             {
-                return con.Query<UserAccount>("Select * from [UserAccount] where UserName = @UserName AND Password = @Password" , p).Any();
+                return con.Query<UserAccount>("Select * from [UserAccount] where UserName = @UserName AND Password = @Password" , p).SingleOrDefault();
             }           
+        }
+
+        //Method that Creates User Account in the database
+        public static int CreateUserAccount(string username, string password)
+        {
+            DynamicParameters p = new DynamicParameters();
+            p.Add("UserName", username);
+            p.Add("Password", password);
+            
+
+            using (SqlConnection con = new SqlConnection(Configuration.GetConnectionString()))
+            {
+              return con.Execute(@"Insert into UserAccount (UserName, Password) values (@UserName, @Password)", p);              
+            }
         }
     }
 

@@ -14,19 +14,15 @@ namespace TamayoWebFormCourseProjectWeb460
 {
     public partial class AccountDetails : System.Web.UI.Page
     {
-        
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            LoadUserInformationOnScreen();
         }
 
-     
         public string UserId
         {
             get { return hdField1.Value; }
         }
-
 
         public string City //Retreives value from City Text box
         {
@@ -68,13 +64,21 @@ namespace TamayoWebFormCourseProjectWeb460
             }
         }
 
-        protected void btnSearch_Click(object sender, EventArgs e)
+        protected void LoadUserInformationOnScreen()
         {
-            
-
             try
             {
-                UserAccount userAccount = ClsDataLayer.FindCustomer(txtUserSearch.Text);
+                UserAccount userAccount;
+
+                if (!string.IsNullOrEmpty(txtUserSearch.Text))
+                {
+                    userAccount = ClsDataLayer.FindCustomer(txtUserSearch.Text);
+                }
+                else
+                {
+                    userAccount = ClsDataLayer.FindCustomer(Session["Username"].ToString());
+                }                
+
                 BindPastApplicationsGridView(userAccount.ID);
 
                 if (userAccount != null)
@@ -103,6 +107,11 @@ namespace TamayoWebFormCourseProjectWeb460
             }
         }
 
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadUserInformationOnScreen();
+        }
+
         private void BindPastApplicationsGridView(int userAccountId)
         {
             List<PastApplication> pastApplication = ClsDataLayer.GetPastApplications(userAccountId);
@@ -121,7 +130,7 @@ namespace TamayoWebFormCourseProjectWeb460
 
             if (result != 1)
             {
-                
+
                 string message = "Error Deleting customer account, please check form data.";
                 Master.MyPrUserFeedbackoperty.Text = message;
             }
@@ -133,11 +142,11 @@ namespace TamayoWebFormCourseProjectWeb460
         }
 
         //Export data from past application table
-        protected void btnExportStats (object sender, EventArgs e)
+        protected void btnExportStats(object sender, EventArgs e)
         {
-           
+
             List<PastApplication> result = ClsDataLayer.GetPastApplications(Convert.ToInt32(hdField1.Value));
-            
+
             string export = Serialize.SerializeObject<List<PastApplication>>(result);
 
             System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
