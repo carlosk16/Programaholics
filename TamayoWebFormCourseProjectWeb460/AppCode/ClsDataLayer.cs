@@ -18,11 +18,7 @@ namespace TamayoWebFormCourseProjectWeb460.AppCode
         {
 
         }
-        OleDbConnection dbConnection;
-        public ClsDataLayer(string Path)
-        {
-            dbConnection = new OleDbConnection("PROVIDER=Microsoft.ACE.OLEDB.12.0;Data Source=" + Path);
-        }
+        OleDbConnection dbConnection;      
 
         public static UserAccount FindCustomer(string userName)
         {
