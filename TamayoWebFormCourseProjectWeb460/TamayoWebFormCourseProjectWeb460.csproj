@@ -70,6 +70,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppCode\CreateDbScript.sql" />
     <Content Include="AppCode\Programaholics.mdf" />
     <Content Include="AppCode\Programaholics_log.ldf">
       <DependentUpon>Programaholics.mdf</DependentUpon>
