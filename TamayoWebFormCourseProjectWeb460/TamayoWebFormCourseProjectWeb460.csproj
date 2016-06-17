@@ -71,10 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppCode\CreateDbScript.sql" />
-    <Content Include="AppCode\Programaholics.mdf" />
-    <Content Include="AppCode\Programaholics_log.ldf">
-      <DependentUpon>Programaholics.mdf</DependentUpon>
-    </Content>
     <Content Include="packages.config" />
     <Content Include="MasterPage.Master" />
     <None Include="Web.Debug.config">
